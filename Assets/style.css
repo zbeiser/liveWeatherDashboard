@@ -1,0 +1,43 @@
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  font-weight: bolder;
+  font-size: 3.8rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+label[for="citySearch"] {
+  font-weight: bolder;
+  font-size: 2.8rem;
+}
+
+#currentCity {
+  margin-top: 1rem;
+}
+
+#cityName {
+  font-weight: bolder;
+  font-size: 2.8rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}
+
+.card-text {
+  padding:0;
+}
+
+#cityWeather li {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding: 1rem;
+}
+
+#fiveDayForecast {
+  font-weight: bolder;
+  font-size: 2.5rem;
+  padding: 1rem;
+}
+
