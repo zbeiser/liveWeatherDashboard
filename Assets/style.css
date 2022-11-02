@@ -4,9 +4,10 @@ body {
 
 h1 {
   font-weight: bolder;
-  font-size: 3.8rem;
+  font-size: 3rem;
   text-align: center;
-  padding: 1rem;
+  padding: .5rem;
+  margin-top: 1rem;
 }
 
 label[for="citySearch"] {
@@ -20,7 +21,7 @@ label[for="citySearch"] {
 
 #cityName {
   font-weight: bolder;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   padding-left: 1rem;
   padding-bottom: 1rem;
 }
@@ -41,3 +42,21 @@ label[for="citySearch"] {
   padding: 1rem;
 }
 
+#cardContainer {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+#forecastOne, #forecastTwo, #forecastThree, #forecastFour, #forecastFive {
+  margin:1rem;
+  max-width: fit-content;
+}
+
+@media screen and (max-width: 930px) {
+  #cardContainer {
+    flex-direction: column;
+  }
+  #forecastOne, #forecastTwo, #forecastThree, #forecastFour, #forecastFive {
+    max-width:none;
+  }
+}
