@@ -45,12 +45,25 @@ function getApi() {
         })
         .then(function (data) {
           console.log(data);
-          
+          var fiveDayArray = [];
+
           for (i = 0; i < data.list.length; i++) {
             if (data.list[i].dt_txt.includes("12:00:00")) {
-              console.log(data.list[i]);
+              fiveDayArray.push(data.list[i]);
             }
           }
+          console.log(fiveDayArray);
+
+          for (i = 0; i < fiveDayArray.length; i++) {
+            var date = new Date(fiveDayArray[i].dt * 1000);
+            date = date.toLocaleDateString("en-US");
+
+            forecastCardEl[i].children[0].innerText = date;
+            forecastCardEl[i].children[2].children[0].innerText = "Temp: " + fiveDayArray[i].main.temp + " °F";
+            forecastCardEl[i].children[2].children[1].innerText = "Wind: " + fiveDayArray[i].wind.speed + " MPH";
+            forecastCardEl[i].children[2].children[2].innerText = "Humidity: " + fiveDayArray[i].main.humidity + " %";
+          }
+
         });
     })
 }
