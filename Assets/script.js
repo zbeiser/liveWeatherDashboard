@@ -4,6 +4,7 @@ var cityNameDateEl = document.getElementById('cityNameDate');
 var cityTempEl = document.getElementById('cityTemp');
 var cityWindEl = document.getElementById('cityWind');
 var cityHumidityEl = document.getElementById('cityHum');
+var forecastCardEl = document.getElementsByClassName('forecastCard');
 var APIKey = "6eeea499c62fe1e384fc56e6dc479df1";
 
 function getApi() {
@@ -19,27 +20,44 @@ function getApi() {
       var latitude = data[0].lat;
       var longitude = data[0].lon;
 
-      var cityFiveDayUrl = 
+      var cityCurrentUrl =
+        "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
+      var cityFiveDayUrl =
         "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
 
+      fetch(cityCurrentUrl)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          var date = new Date(data.dt * 1000);
+          date = date.toLocaleDateString("en-US");
+          var cityNameDate = data.name + " " + "(" + date + ")";
+          var temp = "Temp: " + data.main.temp + " °F";
+          var wind = "Wind: " + data.wind.speed + " MPH";
+          var humidity = "Humidity: " + data.main.humidity + " %";
+
+          cityNameDateEl.innerText = cityNameDate;
+          cityTempEl.innerText = temp;
+          cityWindEl.innerText = wind;
+          cityHumidityEl.innerText = humidity;
+        });
+
       fetch(cityFiveDayUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
 
-        var cityNameDate = data.city.name + " (" + data.list[0].dt_txt.substring(0, 10) + ")";
-        var temp = "Temp: " + data.list[0].main.temp + " °F";
-        var wind = "Wind: " + data.list[0].wind.speed + " MPH";
-        var humidity = "Humidity: " + data.list[0].main.humidity + " %";
+          // for (let i = 0; i < forecastCardEl.length; i++) {
+          //   if ()
+          // }
 
-        cityNameDateEl.innerText = cityNameDate;
-        cityTempEl.innerText = temp;
-        cityWindEl.innerText = wind;
-        cityHumidityEl.innerText = humidity;
-      })
-    });
+        });
+    })
 }
 
 searchButtonEl.addEventListener('click', getApi);
+
+console.log(forecastCardEl);
