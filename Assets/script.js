@@ -32,15 +32,11 @@ function getApi() {
         .then(function (data) {
           var date = new Date(data.dt * 1000);
           date = date.toLocaleDateString("en-US");
-          var cityNameDate = data.name + " " + "(" + date + ")";
-          var temp = "Temp: " + data.main.temp + " °F";
-          var wind = "Wind: " + data.wind.speed + " MPH";
-          var humidity = "Humidity: " + data.main.humidity + " %";
 
-          cityNameDateEl.innerText = cityNameDate;
-          cityTempEl.innerText = temp;
-          cityWindEl.innerText = wind;
-          cityHumidityEl.innerText = humidity;
+          cityNameDateEl.innerText = data.name + " " + "(" + date + ")";
+          cityTempEl.innerText = "Temp: " + data.main.temp + " °F";
+          cityWindEl.innerText = "Wind: " + data.wind.speed + " MPH";
+          cityHumidityEl.innerText = "Humidity: " + data.main.humidity + " %";
         });
 
       fetch(cityFiveDayUrl)
@@ -49,11 +45,12 @@ function getApi() {
         })
         .then(function (data) {
           console.log(data);
-
-          // for (let i = 0; i < forecastCardEl.length; i++) {
-          //   if ()
-          // }
-
+          
+          for (i = 0; i < data.list.length; i++) {
+            if (data.list[i].dt_txt.includes("12:00:00")) {
+              console.log(data.list[i]);
+            }
+          }
         });
     })
 }
