@@ -7,6 +7,8 @@ var cityHumidityEl = document.getElementById('cityHum');
 var forecastCardEl = document.getElementsByClassName('forecastCard');
 var APIKey = "6eeea499c62fe1e384fc56e6dc479df1";
 
+var forecastArray = [];
+
 function getApi() {
   var cityName = citySearchEl.value
   var geocodeUrl =
@@ -37,6 +39,22 @@ function getApi() {
           cityTempEl.innerText = "Temp: " + data.main.temp + " °F";
           cityWindEl.innerText = "Wind: " + data.wind.speed + " MPH";
           cityHumidityEl.innerText = "Humidity: " + data.main.humidity + " %";
+
+          var savedCity = {
+            cityDate: cityNameDateEl.innerText,
+            temp: cityTempEl.innerText,
+            wind: cityWindEl.innerText,
+            humidity: cityHumidityEl.innerText
+          }
+          forecastArray.push(savedCity);
+          localStorage.setItem("Forecasts", JSON.stringify(forecastArray));
+
+          var savedCityBtnEl = document.createElement("button");
+          savedCityBtnEl.innerText = data.name;
+          savedCityBtnEl.classList.add("btn", "btn-secondary", "btn-block")
+          document.getElementById("searchColumn").appendChild(savedCityBtnEl);
+
+          
         });
 
       fetch(cityFiveDayUrl)
@@ -63,10 +81,38 @@ function getApi() {
             forecastCardEl[i].children[2].children[1].innerText = "Wind: " + fiveDayArray[i].wind.speed + " MPH";
             forecastCardEl[i].children[2].children[2].innerText = "Humidity: " + fiveDayArray[i].main.humidity + " %";
           }
+          // Store data into local storage
+          var savedFiveDay = {
+            cityName: data.city.name,
+            dateOne: forecastCardEl[0].children[0].innerText,
+            tempOne: forecastCardEl[0].children[2].children[0].innerText,
+            windOne: forecastCardEl[0].children[2].children[1].innerText,
+            humOne: forecastCardEl[0].children[2].children[2].innerText,
+            dateTwo: forecastCardEl[1].children[0].innerText,
+            tempTwo: forecastCardEl[1].children[2].children[0].innerText,
+            windTwo: forecastCardEl[1].children[2].children[1].innerText,
+            humTwo: forecastCardEl[1].children[2].children[2].innerText,
+            dateThree: forecastCardEl[2].children[0].innerText,
+            tempThree: forecastCardEl[2].children[2].children[0].innerText,
+            windThree: forecastCardEl[2].children[2].children[1].innerText,
+            humThree: forecastCardEl[2].children[2].children[2].innerText,
+            dateFour: forecastCardEl[3].children[0].innerText,
+            tempFour: forecastCardEl[3].children[2].children[0].innerText,
+            windFour: forecastCardEl[3].children[2].children[1].innerText,
+            humFour: forecastCardEl[3].children[2].children[2].innerText,
+            dateFive: forecastCardEl[4].children[0].innerText,
+            tempFive: forecastCardEl[4].children[2].children[0].innerText,
+            windFive: forecastCardEl[4].children[2].children[1].innerText,
+            humFive: forecastCardEl[4].children[2].children[2].innerText,
+          }
+          forecastArray.push(savedFiveDay);
+          localStorage.setItem("Forecasts", JSON.stringify(forecastArray));
 
         });
     })
 }
+
+// TODO: Display icons; Create buttons that display data from previous searches (Local storage?);
 
 searchButtonEl.addEventListener('click', getApi);
 
