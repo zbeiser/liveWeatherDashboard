@@ -118,10 +118,26 @@ function retrieveSearch(ev) {
       cityTempEl.innerText = forecastArray[i].temp;
       cityWindEl.innerText = forecastArray[i].wind;
       cityHumidityEl.innerText = forecastArray[i].humidity;
+    } else if (forecastArray[i].cityName == clickedBtn && Object.keys(forecastArray[i]).length == 21) {
+      forecastCardEl[0].children[2].children[0].innerText = forecastArray[i].tempOne;
+      forecastCardEl[0].children[2].children[1].innerText = forecastArray[i].windOne;
+      forecastCardEl[0].children[2].children[2].innerText = forecastArray[i].humOne;
+      forecastCardEl[1].children[2].children[0].innerText = forecastArray[i].tempTwo;
+      forecastCardEl[1].children[2].children[1].innerText = forecastArray[i].windTwo;
+      forecastCardEl[1].children[2].children[2].innerText = forecastArray[i].humTwo;
+      forecastCardEl[2].children[2].children[0].innerText = forecastArray[i].tempThree;
+      forecastCardEl[2].children[2].children[1].innerText = forecastArray[i].windThree;
+      forecastCardEl[2].children[2].children[2].innerText = forecastArray[i].humThree;
+      forecastCardEl[3].children[2].children[0].innerText = forecastArray[i].tempFour;
+      forecastCardEl[3].children[2].children[1].innerText = forecastArray[i].windFour;
+      forecastCardEl[3].children[2].children[2].innerText = forecastArray[i].humFour;
+      forecastCardEl[4].children[2].children[0].innerText = forecastArray[i].tempFive;
+      forecastCardEl[4].children[2].children[1].innerText = forecastArray[i].windFive;
+      forecastCardEl[4].children[2].children[2].innerText = forecastArray[i].humFive;
     }
   }
 }
 
-// TODO: Display icons; Create buttons that display data from previous searches (Local storage?);
+// TODO: Display icons; Update buttons and forecastArray from localStorage on reload;
 
 searchButtonEl.addEventListener('click', getApi);
