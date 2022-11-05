@@ -41,7 +41,8 @@ function getApi() {
           cityHumidityEl.innerText = "Humidity: " + data.main.humidity + " %";
 
           var savedCity = {
-            cityDate: cityNameDateEl.innerText,
+            cityName: data.name,
+            cityDate: "(" + date + ")",
             temp: cityTempEl.innerText,
             wind: cityWindEl.innerText,
             humidity: cityHumidityEl.innerText
@@ -53,8 +54,7 @@ function getApi() {
           savedCityBtnEl.innerText = data.name;
           savedCityBtnEl.classList.add("btn", "btn-secondary", "btn-block")
           document.getElementById("searchColumn").appendChild(savedCityBtnEl);
-
-          
+          savedCityBtnEl.addEventListener("click", retrieveSearch)
         });
 
       fetch(cityFiveDayUrl)
@@ -62,7 +62,6 @@ function getApi() {
           return response.json();
         })
         .then(function (data) {
-          console.log(data);
           var fiveDayArray = [];
 
           for (i = 0; i < data.list.length; i++) {
@@ -70,7 +69,6 @@ function getApi() {
               fiveDayArray.push(data.list[i]);
             }
           }
-          console.log(fiveDayArray);
 
           for (i = 0; i < fiveDayArray.length; i++) {
             var date = new Date(fiveDayArray[i].dt * 1000);
@@ -107,13 +105,23 @@ function getApi() {
           }
           forecastArray.push(savedFiveDay);
           localStorage.setItem("Forecasts", JSON.stringify(forecastArray));
-
         });
+      console.log(forecastArray);
     })
+}
+
+function retrieveSearch(ev) {
+  var clickedBtn = ev.target.innerText;
+  for (i = 0; i < forecastArray.length; i++) {
+    if (forecastArray[i].cityName == clickedBtn && Object.keys(forecastArray[i]).length == 5) {
+      cityNameDateEl.innerText = forecastArray[i].cityName + " " + forecastArray[i].cityDate;
+      cityTempEl.innerText = forecastArray[i].temp;
+      cityWindEl.innerText = forecastArray[i].wind;
+      cityHumidityEl.innerText = forecastArray[i].humidity;
+    }
+  }
 }
 
 // TODO: Display icons; Create buttons that display data from previous searches (Local storage?);
 
 searchButtonEl.addEventListener('click', getApi);
-
-console.log(forecastCardEl);
