@@ -11,8 +11,8 @@
 </head>
 
 <body>
-  <header class="">
-    <h1>Weather Dashboard</h1>
+  <header class="bg-primary">
+    <h1 class="text-white">Weather Dashboard</h1>
   </header>
   <div class="container-fluid">
     <div class="row">
@@ -21,7 +21,7 @@
           <label for="citySearch">Search for a city:</label>
           <input type="text" placeholder="Enter city name" id="citySearch" class="form-control form-control-lg">
         </div>
-        <button type="button" class="btn btn-info btn-block" id="searchBtn">Search</button>
+        <button type="button" class="btn btn-primary btn-block" id="searchBtn">Search</button>
       </section>
       <section class="col-md-9">
         <div class="card card-body" id="currentCity">
@@ -32,7 +32,7 @@
             <li class="list-group-item" id="cityHum">Humidity:</li>
           </ul>
         </div>
-        <h2 id="fiveDayForecast">5-day Forecast</h2>
+        <h2 id="fiveDayForecast">5-day Forecast:</h2>
         <div id="cardContainer">
           <div class="card card-body forecastCard" id="forecastOne">
             <h3 id="dateOne"></h3>
