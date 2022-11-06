@@ -47,7 +47,7 @@ function getApi() {
 
           var currentCityIcon = document.createElement("img");
           currentCityIcon.setAttribute("src", "http://openweathermap.org/img/wn/" 
-          + data.weather[0].icon + "@2x.png");
+            + data.weather[0].icon + "@2x.png");
           currentCityIcon.setAttribute("style", "scale:50%");
           cityNameDateEl.appendChild(currentCityIcon);
 
@@ -87,9 +87,15 @@ function getApi() {
             date = date.toLocaleDateString("en-US");
 
             forecastCardEl[i].children[0].innerText = date;
-            forecastCardEl[i].children[2].children[0].innerText = "Temp: " + fiveDayArray[i].main.temp + " °F";
-            forecastCardEl[i].children[2].children[1].innerText = "Wind: " + fiveDayArray[i].wind.speed + " MPH";
-            forecastCardEl[i].children[2].children[2].innerText = "Humidity: " + fiveDayArray[i].main.humidity + " %";
+            forecastCardEl[i].children[1].src = "http://openweathermap.org/img/wn/" 
+              + fiveDayArray[i].weather[0].icon + "@2x.png";
+            forecastCardEl[i].children[1].style = "width:50px; height:50px;"
+            forecastCardEl[i].children[2].children[0].innerText = "Temp: " 
+              + fiveDayArray[i].main.temp + " °F";
+            forecastCardEl[i].children[2].children[1].innerText = "Wind: " 
+              + fiveDayArray[i].wind.speed + " MPH";
+            forecastCardEl[i].children[2].children[2].innerText = "Humidity: " 
+              + fiveDayArray[i].main.humidity + " %";
           }
           // Store data into local storage
           var savedFiveDay = {
@@ -117,6 +123,8 @@ function getApi() {
           }
           forecastArray.push(savedFiveDay);
           localStorage.setItem("Forecasts", JSON.stringify(forecastArray));
+
+          console.log(fiveDayArray);
         });
     });
 }
@@ -182,5 +190,3 @@ function updateSearches() {
 }
 
 updateSearches();
-
-// TODO: Display icons;
