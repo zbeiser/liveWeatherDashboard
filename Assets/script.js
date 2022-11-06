@@ -14,7 +14,7 @@ searchButtonEl.addEventListener('click', getApi);
 function getApi() {
   var cityName = citySearchEl.value
   var geocodeUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" 
+    "http://api.openweathermap.org/geo/1.0/direct?q="
     + cityName + "&limit=1&appid=" + APIKey;
 
   fetch(geocodeUrl)
@@ -26,10 +26,10 @@ function getApi() {
       var longitude = data[0].lon;
 
       var cityCurrentUrl =
-        "https://api.openweathermap.org/data/2.5/weather?lat=" 
+        "https://api.openweathermap.org/data/2.5/weather?lat="
         + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
       var cityFiveDayUrl =
-        "https://api.openweathermap.org/data/2.5/forecast?lat=" 
+        "https://api.openweathermap.org/data/2.5/forecast?lat="
         + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
 
       fetch(cityCurrentUrl)
@@ -46,7 +46,7 @@ function getApi() {
           cityHumidityEl.innerText = "Humidity: " + data.main.humidity + " %";
 
           var currentCityIcon = document.createElement("img");
-          currentCityIcon.setAttribute("src", "http://openweathermap.org/img/wn/" 
+          currentCityIcon.setAttribute("src", "http://openweathermap.org/img/wn/"
             + data.weather[0].icon + "@2x.png");
           currentCityIcon.setAttribute("style", "scale:50%");
           cityNameDateEl.appendChild(currentCityIcon);
@@ -87,36 +87,41 @@ function getApi() {
             date = date.toLocaleDateString("en-US");
 
             forecastCardEl[i].children[0].innerText = date;
-            forecastCardEl[i].children[1].src = "http://openweathermap.org/img/wn/" 
+            forecastCardEl[i].children[1].src = "http://openweathermap.org/img/wn/"
               + fiveDayArray[i].weather[0].icon + "@2x.png";
             forecastCardEl[i].children[1].style = "width:50px; height:50px;"
-            forecastCardEl[i].children[2].children[0].innerText = "Temp: " 
+            forecastCardEl[i].children[2].children[0].innerText = "Temp: "
               + fiveDayArray[i].main.temp + " °F";
-            forecastCardEl[i].children[2].children[1].innerText = "Wind: " 
+            forecastCardEl[i].children[2].children[1].innerText = "Wind: "
               + fiveDayArray[i].wind.speed + " MPH";
-            forecastCardEl[i].children[2].children[2].innerText = "Humidity: " 
+            forecastCardEl[i].children[2].children[2].innerText = "Humidity: "
               + fiveDayArray[i].main.humidity + " %";
           }
           // Store data into local storage
           var savedFiveDay = {
             cityName: data.city.name,
             dateOne: forecastCardEl[0].children[0].innerText,
+            iconOne: forecastCardEl[0].children[1].src,
             tempOne: forecastCardEl[0].children[2].children[0].innerText,
             windOne: forecastCardEl[0].children[2].children[1].innerText,
             humOne: forecastCardEl[0].children[2].children[2].innerText,
             dateTwo: forecastCardEl[1].children[0].innerText,
+            iconTwo: forecastCardEl[1].children[1].src,
             tempTwo: forecastCardEl[1].children[2].children[0].innerText,
             windTwo: forecastCardEl[1].children[2].children[1].innerText,
             humTwo: forecastCardEl[1].children[2].children[2].innerText,
             dateThree: forecastCardEl[2].children[0].innerText,
+            iconThree: forecastCardEl[2].children[1].src,
             tempThree: forecastCardEl[2].children[2].children[0].innerText,
             windThree: forecastCardEl[2].children[2].children[1].innerText,
             humThree: forecastCardEl[2].children[2].children[2].innerText,
             dateFour: forecastCardEl[3].children[0].innerText,
+            iconFour: forecastCardEl[3].children[1].src,
             tempFour: forecastCardEl[3].children[2].children[0].innerText,
             windFour: forecastCardEl[3].children[2].children[1].innerText,
             humFour: forecastCardEl[3].children[2].children[2].innerText,
             dateFive: forecastCardEl[4].children[0].innerText,
+            iconFive: forecastCardEl[4].children[1].src,
             tempFive: forecastCardEl[4].children[2].children[0].innerText,
             windFive: forecastCardEl[4].children[2].children[1].innerText,
             humFive: forecastCardEl[4].children[2].children[2].innerText,
@@ -142,28 +147,38 @@ function retrieveSearch(ev) {
         currentCityIcon.src = forecastArray[i].cityIcon;
       } else {
         var currentCityIcon = document.createElement("img");
-          currentCityIcon.setAttribute("src", forecastArray[i].cityIcon);
-          currentCityIcon.setAttribute("style", "scale:50%");
-          cityNameDateEl.appendChild(currentCityIcon);
+        currentCityIcon.setAttribute("src", forecastArray[i].cityIcon);
+        currentCityIcon.setAttribute("style", "scale:50%");
+        cityNameDateEl.appendChild(currentCityIcon);
       }
-    } else if (forecastArray[i].cityName == clickedBtn && Object.keys(forecastArray[i]).length == 21) {
+    } else if (forecastArray[i].cityName == clickedBtn && Object.keys(forecastArray[i]).length == 26) {
       forecastCardEl[0].children[0].innerText = forecastArray[i].dateOne;
+      forecastCardEl[0].children[1].src = forecastArray[i].iconOne;
+      forecastCardEl[0].children[1].style = "width:50px; height:50px;"
       forecastCardEl[0].children[2].children[0].innerText = forecastArray[i].tempOne;
       forecastCardEl[0].children[2].children[1].innerText = forecastArray[i].windOne;
       forecastCardEl[0].children[2].children[2].innerText = forecastArray[i].humOne;
       forecastCardEl[1].children[0].innerText = forecastArray[i].dateTwo;
+      forecastCardEl[1].children[1].src = forecastArray[i].iconTwo;
+      forecastCardEl[1].children[1].style = "width:50px; height:50px;"
       forecastCardEl[1].children[2].children[0].innerText = forecastArray[i].tempTwo;
       forecastCardEl[1].children[2].children[1].innerText = forecastArray[i].windTwo;
       forecastCardEl[1].children[2].children[2].innerText = forecastArray[i].humTwo;
       forecastCardEl[2].children[0].innerText = forecastArray[i].dateThree;
+      forecastCardEl[2].children[1].src = forecastArray[i].iconThree;
+      forecastCardEl[2].children[1].style = "width:50px; height:50px;"
       forecastCardEl[2].children[2].children[0].innerText = forecastArray[i].tempThree;
       forecastCardEl[2].children[2].children[1].innerText = forecastArray[i].windThree;
       forecastCardEl[2].children[2].children[2].innerText = forecastArray[i].humThree;
       forecastCardEl[3].children[0].innerText = forecastArray[i].dateFour;
+      forecastCardEl[3].children[1].src = forecastArray[i].iconFour;
+      forecastCardEl[3].children[1].style = "width:50px; height:50px;"
       forecastCardEl[3].children[2].children[0].innerText = forecastArray[i].tempFour;
       forecastCardEl[3].children[2].children[1].innerText = forecastArray[i].windFour;
       forecastCardEl[3].children[2].children[2].innerText = forecastArray[i].humFour;
       forecastCardEl[4].children[0].innerText = forecastArray[i].dateFive;
+      forecastCardEl[4].children[1].src = forecastArray[i].iconFive;
+      forecastCardEl[4].children[1].style = "width:50px; height:50px;"
       forecastCardEl[4].children[2].children[0].innerText = forecastArray[i].tempFive;
       forecastCardEl[4].children[2].children[1].innerText = forecastArray[i].windFive;
       forecastCardEl[4].children[2].children[2].innerText = forecastArray[i].humFive;
