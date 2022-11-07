@@ -14,7 +14,7 @@ searchButtonEl.addEventListener('click', getApi);
 function getApi() {
   var cityName = citySearchEl.value
   var geocodeUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q="
+    "https://api.openweathermap.org/geo/1.0/direct?q="
     + cityName + "&limit=1&appid=" + APIKey;
 
   fetch(geocodeUrl)
@@ -46,7 +46,7 @@ function getApi() {
           cityHumidityEl.innerText = "Humidity: " + data.main.humidity + " %";
 
           var currentCityIcon = document.createElement("img");
-          currentCityIcon.setAttribute("src", "http://openweathermap.org/img/wn/"
+          currentCityIcon.setAttribute("src", "https://openweathermap.org/img/wn/"
             + data.weather[0].icon + "@2x.png");
           currentCityIcon.setAttribute("style", "scale:50%");
           cityNameDateEl.appendChild(currentCityIcon);
@@ -54,7 +54,7 @@ function getApi() {
           var savedCity = {
             cityName: data.name,
             cityDate: "(" + date + ")",
-            cityIcon: "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png",
+            cityIcon: "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png",
             temp: cityTempEl.innerText,
             wind: cityWindEl.innerText,
             humidity: cityHumidityEl.innerText
@@ -77,7 +77,7 @@ function getApi() {
           var fiveDayArray = [];
 
           for (i = 0; i < data.list.length; i++) {
-            if (data.list[i].dt_txt.includes("12:00:00")) {
+            if (data.list[i].dt_txt.includes("00:00:00")) {
               fiveDayArray.push(data.list[i]);
             }
           }
@@ -87,7 +87,7 @@ function getApi() {
             date = date.toLocaleDateString("en-US");
 
             forecastCardEl[i].children[0].innerText = date;
-            forecastCardEl[i].children[1].src = "http://openweathermap.org/img/wn/"
+            forecastCardEl[i].children[1].src = "https://openweathermap.org/img/wn/"
               + fiveDayArray[i].weather[0].icon + "@2x.png";
             forecastCardEl[i].children[1].style = "width:50px; height:50px;"
             forecastCardEl[i].children[2].children[0].innerText = "Temp: "
@@ -129,6 +129,7 @@ function getApi() {
           forecastArray.push(savedFiveDay);
           localStorage.setItem("Forecasts", JSON.stringify(forecastArray));
 
+          console.log(data);
           console.log(fiveDayArray);
         });
     });
