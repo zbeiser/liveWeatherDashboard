@@ -6,6 +6,7 @@ var cityWindEl = document.getElementById('cityWind');
 var cityHumidityEl = document.getElementById('cityHum');
 var forecastCardEl = document.getElementsByClassName('forecastCard');
 var APIKey = "6eeea499c62fe1e384fc56e6dc479df1";
+var currentDate = new Date().toLocaleDateString("en-US");
 
 var forecastArray = [];
 
@@ -77,7 +78,7 @@ function getApi() {
           var fiveDayArray = [];
 
           for (i = 0; i < data.list.length; i++) {
-            if (data.list[i].dt_txt.includes("00:00:00")) {
+            if (data.list[i].dt_txt.includes("18:00:00") && new Date(data.list[i].dt * 1000) !== currentDate) {
               fiveDayArray.push(data.list[i]);
             }
           }
